@@ -1,0 +1,16 @@
+{
+  "name": "fuji-xe5-recipes-lab",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Local-first Fujifilm X-E5 recipe parser, editor, backup and USB laboratory.",
+  "scripts": {
+    "dev": "node server.mjs",
+    "start": "node server.mjs",
+    "verify": "node --check server.mjs && node scripts/verify.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "MIT"
+}
