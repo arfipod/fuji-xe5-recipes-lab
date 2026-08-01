@@ -1,0 +1,39 @@
+name: Materialize initial source
+
+on:
+  push:
+    branches:
+      - feat/initial-xe5-recipe-lab
+    paths:
+      - ".bootstrap/**"
+      - "scripts/materialize_project.py"
+      - ".github/workflows/materialize.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Materialize project
+        run: python scripts/materialize_project.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate materialized source
+        run: |
+          npm install --no-package-lock
+          npm run build
+      - name: Commit materialized source
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "feat: implement initial X-E5 recipe lab"
+          git push origin HEAD:${GITHUB_REF_NAME}
