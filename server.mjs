@@ -25,7 +25,28 @@ function loadApplicationHtml() {
   return gunzipSync(Buffer.from(base64, 'base64')).toString('utf8');
 }
 
-const applicationHtml = loadApplicationHtml();
+const applicationHtml = injectFooter(loadApplicationHtml());
+
+function injectFooter(html) {
+  const footer = '<footer class="global-footer" aria-label="Project credit">Made with 💙 by arrf</footer>';
+  const style = `<style>
+    .global-footer {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 18px 24px 24px;
+      border-top: 1px solid #c8c8c8;
+      background: #e8e8e8;
+      color: #656565;
+      font: 500 12px/1.4 "Avenir Next", Avenir, "Helvetica Neue", Arial, sans-serif;
+      letter-spacing: 0.02em;
+      text-align: center;
+    }
+  </style>`;
+
+  return html
+    .replace('</head>', `${style}</head>`)
+    .replace('</body>', `${footer}</body>`);
+}
 
 function send(response, status, body, headers = {}) {
   response.writeHead(status, {
