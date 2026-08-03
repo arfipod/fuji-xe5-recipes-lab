@@ -4,3 +4,14 @@ coverage/
 *.log
 .local/
 exports/
+backups/
+camera-data/
+*.RAF
+*.raf
+*.bak
+*.backup
+*.bin
+*.ptp-dump
+*.usbmon
+__pycache__/
+*.pyc

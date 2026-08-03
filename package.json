@@ -7,10 +7,13 @@
   "scripts": {
     "dev": "node server.mjs",
     "start": "node server.mjs",
-    "verify": "node --check server.mjs && node scripts/verify.mjs"
+    "check": "node scripts/check.mjs",
+    "test": "node --test",
+    "verify": "npm run check && npm test && node scripts/design-check.mjs && node scripts/verify.mjs",
+    "baseline:browser": "node --experimental-websocket scripts/browser-baseline.mjs"
   },
   "engines": {
-    "node": ">=22"
+    "node": ">=20"
   },
   "license": "MIT"
 }
